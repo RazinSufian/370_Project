@@ -85,3 +85,5 @@ CREATE TABLE IF NOT EXISTS `selecting_products_cart` (
     FOREIGN KEY (`product_id`) REFERENCES `product_info`(`product_id`)
 );
 
+
+
