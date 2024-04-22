@@ -1,18 +1,22 @@
 // LandingPage.js
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import './LandingPage.css'; // Import a CSS file for styling
-import ShoeCard from '../../Components/ShoeCard/ShoeCard';
+// import topProductCard from '../../Components/topProductCard/topProductCard';
 import Navbar from '../../Shared/Navbar/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetTopProductsQuery } from '../../features/products/productsApiSlice';
+import { selectTopProducts, setError, setLoading, setTopProducts } from '../../features/products/productsSlice';
+import ProductCard from '../../Components/ProductCard/ProductCard';
 
 const mockupData = [
   {
     id: 1,
-    name: 'Running Shoes',
-    description: 'Comfortable and lightweight running shoes for your active lifestyle.',
+    name: 'Running topProducts',
+    description: 'Comfortable and lightweight running topProducts for your active lifestyle.',
     price: 59.99,
-    image: 'https://example.com/running-shoes.jpg',
+    image: 'https://example.com/running-topProducts.jpg',
   },
   {
     id: 2,
@@ -30,10 +34,10 @@ const mockupData = [
   },
   {
     id: 4,
-    name: 'Running Shoes',
-    description: 'Comfortable and lightweight running shoes for your active lifestyle.',
+    name: 'Running topProducts',
+    description: 'Comfortable and lightweight running topProducts for your active lifestyle.',
     price: 59.99,
-    image: 'https://example.com/running-shoes.jpg',
+    image: 'https://example.com/running-topProducts.jpg',
   },
   {
     id: 5,
@@ -51,10 +55,10 @@ const mockupData = [
   },
   {
     id: 7,
-    name: 'Running Shoes',
-    description: 'Comfortable and lightweight running shoes for your active lifestyle.',
+    name: 'Running topProducts',
+    description: 'Comfortable and lightweight running topProducts for your active lifestyle.',
     price: 59.99,
-    image: 'https://example.com/running-shoes.jpg',
+    image: 'https://example.com/running-topProducts.jpg',
   },
   {
     id: 8,
@@ -72,10 +76,10 @@ const mockupData = [
   },
   {
     id: 10,
-    name: 'Running Shoes',
-    description: 'Comfortable and lightweight running shoes for your active lifestyle.',
+    name: 'Running topProducts',
+    description: 'Comfortable and lightweight running topProducts for your active lifestyle.',
     price: 59.99,
-    image: 'https://example.com/running-shoes.jpg',
+    image: 'https://example.com/running-topProducts.jpg',
   },
   {
     id: 11,
@@ -91,24 +95,46 @@ const mockupData = [
     price: 49.99,
     image: 'https://example.com/casual-sneakers.jpg',
   },
-  // Add more shoes as needed
+  // Add more topProducts as needed
 ];
 
 const LandingPage = () => {
+  const dispatch = useDispatch();
+  const { data: topProducts, isLoading, isError } = useGetTopProductsQuery();
+  const products = useSelector(selectTopProducts);
+
+  useEffect(() => {
+    if (topProducts) {
+      dispatch(setTopProducts(topProducts));
+      console.log(topProducts);
+    }
+    console.log(topProducts);
+  }, [topProducts, dispatch]);
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(setLoading('loading'));
+    } else if (isError) {
+      dispatch(setError('error'));
+    } else {
+      dispatch(setLoading('idle'));
+    }
+  }, [isLoading, isError, dispatch]);
+
   return (
     <>
     <Navbar></Navbar>
     <div className="landing-page">
       <header className="header">
-        <h1>Welcome to Our Shoe Store</h1>
+        <h1>Welcome to Our topProduct Store</h1>
         <p>Discover the latest trends in footwear</p>
       </header>
       
       <section className="featured-section">
-        <h2>Featured Shoes</h2>
-        <div className="shoe-list">
-          {mockupData.map((shoe) => (
-            <ShoeCard key={shoe.id} shoe={shoe} />
+        <h2>Featured topProducts</h2>
+        <div className="product-list">
+          {products && products.map((product) => (
+            <ProductCard key={product.product_id} product={product} />
           ))}
         </div>
       </section>
@@ -116,8 +142,8 @@ const LandingPage = () => {
       <section className="about-section">
         <h2>About Us</h2>
         <p>
-          At our shoe store, we strive to provide you with the best in footwear fashion.
-          Explore our wide range of shoes, from athletic sneakers to elegant boots,
+          At our topProduct store, we strive to provide you with the best in footwear fashion.
+          Explore our wide range of topProducts, from athletic sneakers to elegant boots,
           designed to suit every occasion and style.
         </p>
       </section>
@@ -132,7 +158,7 @@ const LandingPage = () => {
       </section>
 
       <footer className="footer">
-        <p>&copy; 2024 Your Shoe Store. All rights reserved.</p>
+        <p>&copy; 2024 Your topProduct Store. All rights reserved.</p>
       </footer>
     </div>
     </>

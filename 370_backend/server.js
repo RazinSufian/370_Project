@@ -1,11 +1,9 @@
 // server.js
 import express from 'express';
 import cors from 'cors';
-import homePageRoute from './app/middle_ware/homepage.js';
+import homePageRoute from './app/router/homepage.js';
+import productRoute from './app/router/ProductInfoRoutes.js'
 
-import {
-
-} from './config/database.js';
 //Ensure the path to your database.js is correct
 
 
@@ -16,6 +14,7 @@ const port = 3000;
 app.use(cors()); // Enables CORS
 app.use(express.json()); // Parses incoming JSON requests
 app.use('/', homePageRoute);
+app.use('/products', productRoute)
 
 
 

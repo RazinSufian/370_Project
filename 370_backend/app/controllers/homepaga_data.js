@@ -5,13 +5,22 @@ const getTopProducts = async () => {
     const [rows] = await pool.query(`
         SELECT 
             oi.product_id,
+            pi.name AS product_name,
+            pi.product_description AS product_description,
+            s.name AS shop_name,
+            pi.image_url AS product_image_url,
+            pi.price,
             SUM(1) AS quantity_sold
         FROM 
             \`order\` o
         INNER JOIN 
             \`product_info\` oi ON o.product_id = oi.product_id
+        INNER JOIN 
+            \`product_info\` pi ON oi.product_id = pi.product_id
+        INNER JOIN 
+            \`shop\` s ON oi.shop_id = s.shop_id
         GROUP BY 
-            oi.product_id
+            oi.product_id, pi.name, pi.product_description, s.name, pi.image_url, pi.price
         ORDER BY 
             quantity_sold DESC
         LIMIT 15;

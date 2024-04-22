@@ -1,5 +1,5 @@
-import { pool } from "../../config/database";
-import { comparePassword, generateToken, hashPassword } from "../middle_ware/authHelper";
+import { pool } from "../../config/database.js";
+import { comparePassword, generateToken, hashPassword } from "../middle_ware/authHelper.js";
 
 // Admin Signup
 export const adminSignup = async (name, role, pass) => {

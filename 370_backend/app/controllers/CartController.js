@@ -1,4 +1,4 @@
-import { pool } from "../../config/database";
+import { pool } from "../../config/database.js";
 
 // Cart controller
 export const addToCart = async (customer_id, product_id) => {

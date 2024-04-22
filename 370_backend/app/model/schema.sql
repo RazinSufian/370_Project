@@ -1,4 +1,4 @@
--- Active: 1713204719140@@127.0.0.1@3306@370_project
+-- Active: 1713580632276@@127.0.0.1@3306@370_project
 -- Admin Table
 CREATE TABLE IF NOT EXISTS `admin` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
@@ -86,4 +86,5 @@ CREATE TABLE IF NOT EXISTS `selecting_products_cart` (
 );
 
 
-
+ALTER TABLE `product_info`
+ADD COLUMN `image_url` VARCHAR(255);

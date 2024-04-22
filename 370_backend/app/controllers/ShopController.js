@@ -1,4 +1,4 @@
-import { pool } from "../../config/database";
+import { pool } from "../../config/database.js";
 
 // Shop controller
 export const createShop = async (seller_id, name, total_categories, phone, division, house, city, fb, insta) => {

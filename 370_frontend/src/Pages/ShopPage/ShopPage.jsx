@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './ShopPage.css';
-import ShoeCard from '../../Components/ShoeCard/ShoeCard';
+import ShoeCard from '../../Components/ProductCard/ProductCard';
 
 const ShopPage = ({ shops, shoes }) => {
     // Sample data for preview

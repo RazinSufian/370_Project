@@ -1,4 +1,4 @@
-import { pool } from "../../config/database";
+import { pool } from "../../config/database.js";
 
 // Admin controller
 export const createAdmin = async (name, role, pass) => {

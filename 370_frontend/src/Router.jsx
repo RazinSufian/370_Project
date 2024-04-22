@@ -5,8 +5,9 @@ import React from 'react';
 //   } from "react-router-dom";
 import App from './App';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import ShoeDetail from './Pages/ShoeDetail/ShoeDetail';
+// import ShoeDetail from './Pages/ProductDetail/ProductDetail';
 import ShopPage from './Pages/ShopPage/ShopPage';
+import ProductDetail from './Pages/ProductDetail/ProductDetail';
 
 const Router = () => {
     const router = createBrowserRouter([
@@ -16,8 +17,8 @@ const Router = () => {
 
         },
         {
-          path: "/shoes/:id",
-          element: <ShoeDetail></ShoeDetail>,
+          path: "/products/:id",
+          element: <ProductDetail></ProductDetail>
         },
         {
           path: "/shops/:id",

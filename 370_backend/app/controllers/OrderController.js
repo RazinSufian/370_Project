@@ -1,4 +1,4 @@
-import { pool } from "../../config/database";
+import { pool } from "../../config/database.js";
 
 // Order controller
 export const createOrder = async (customer_id, product_id, shop_id, payment_method, billing_address, delivery_time, payment_status, shipment_status) => {
