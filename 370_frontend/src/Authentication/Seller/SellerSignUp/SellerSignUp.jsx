@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sellerSignup } from '../../../features/auth/authSlice';
 import toast, { Toaster } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function SellerSignup() {
     
@@ -20,7 +20,7 @@ function SellerSignup() {
         toast.error(error.message); // Display the error message
       }
       if (status === 'succeeded') {
-        toast.success('Customer signup successful');
+        toast.success('Seller signup successful');
         navigate('/'); // Navigate to the last page
       }
       console.log(status)
@@ -57,6 +57,7 @@ function SellerSignup() {
                     <input type="password" name="pass" value={formData.pass} onChange={handleChange} required />
                 </div>
                 <button type="submit">Sign Up</button>
+                <p>Already have an account? <Link to="/auth/seller/login">Login</Link></p>
             </form>
         </div>
     );

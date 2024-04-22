@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { customerSignup } from '../../../features/auth/authSlice';
 import toast, { Toaster } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 function CustomerSignup() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', pass: '', division: '', house_no: '', city: '' });
@@ -16,7 +16,7 @@ function CustomerSignup() {
     }
     if (status === 'succeeded') {
       toast.success('Customer signup successful');
-      navigate('/last-page'); // Navigate to the last page
+      navigate('/'); // Navigate to the last page
     }
   }, [error, status, navigate]);
 
@@ -65,6 +65,7 @@ function CustomerSignup() {
         <button type="submit" disabled={isLoading}>
           {isLoading ? 'Signing up...' : 'Sign Up'}
         </button>
+        <p>Already have an account? <Link to="/auth/customer/login">Login</Link></p>
       </form>
     </div>
   );

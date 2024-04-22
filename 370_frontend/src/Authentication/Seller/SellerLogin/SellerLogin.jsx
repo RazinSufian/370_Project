@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { sellerLogin } from '../../../features/auth/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 
 function SellerLogin() {
@@ -20,7 +20,7 @@ function SellerLogin() {
         toast.error(error.message); // Display the error message
       }
       if (status === 'succeeded') {
-        toast.success('Customer signup successful');
+        toast.success('Seller LoginS successful');
         navigate('/'); // Navigate to the last page
       }
       console.log(status)
@@ -41,6 +41,7 @@ function SellerLogin() {
 
     return (
         <div>
+            <Toaster />
             <h2>Seller Login</h2>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -52,6 +53,7 @@ function SellerLogin() {
                     <input type="password" name="pass" value={formData.pass} onChange={handleChange} required />
                 </div>
                 <button type="submit">Login</button>
+                <p>Don't have an account? <Link to="/auth/seller/signup">Sign Up</Link></p>
             </form>
         </div>
     );

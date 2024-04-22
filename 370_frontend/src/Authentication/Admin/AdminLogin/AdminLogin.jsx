@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { adminLogin } from '../../../features/auth/authSlice';
-
+import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 function AdminLogin() {
     const [formData, setFormData] = useState({
@@ -9,7 +10,18 @@ function AdminLogin() {
         pass: ''
     });
     const dispatch = useDispatch();
-
+    const navigate = useNavigate(); // Initialize the useNavigate hook
+    const { error, isLoading, status } = useSelector((state) => state.auth);
+  
+    useEffect(() => {
+      if (error && error.message) { // Check if error exists and has a message property
+        toast.error(error.message); // Display the error message
+      }
+      if (status === 'succeeded') {
+        toast.success('Admin Login successful');
+        navigate('/last-page'); // Navigate to the last page
+      }
+    }, [error, status, navigate]);
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -24,6 +36,7 @@ function AdminLogin() {
 
     return (
         <div>
+            <Toaster />
             <h2>Admin Login</h2>
             <form onSubmit={handleSubmit}>
                 <div>
