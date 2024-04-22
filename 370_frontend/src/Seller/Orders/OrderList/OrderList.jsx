@@ -1,6 +1,7 @@
 // OrderList.js
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const OrderList = () => {
   // Mock-up data for order list
@@ -25,6 +26,7 @@ const OrderList = () => {
   ];
 
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch orders from your backend API and update the state
@@ -39,6 +41,10 @@ const OrderList = () => {
     // For now, using mock data for demonstration
     setOrders(mockOrders);
   }, []);
+
+  const handleDetailPage =(id)=>{
+    navigate(`/seller/order-details/${id}`)
+  }
 
   return (
     <div className="view-orders-container">
@@ -55,6 +61,7 @@ const OrderList = () => {
               <th>Total Amount</th>
               <th>Order Date</th>
               <th>Status</th>
+              <th>Details</th>
             </tr>
           </thead>
           <tbody>
@@ -66,6 +73,7 @@ const OrderList = () => {
                 <td>{order.totalAmount}</td>
                 <td>{order.orderDate}</td>
                 <td>{order.status}</td>
+                <td><button onClick={()=>handleDetailPage(order.orderId)}>Details</button></td>
               </tr>
             ))}
           </tbody>

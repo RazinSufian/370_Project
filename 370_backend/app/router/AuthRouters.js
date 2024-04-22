@@ -49,8 +49,10 @@ router.post('/signup/customer', [
         }
         const { name, phone, email, pass, division, house_no, city } = req.body;
         const result = await customerSignup(name, phone, email, pass, division, house_no, city);
+        console.log(result);
         res.status(201).send(result);
     } catch (error) {
+        console.error({ message: error.message });
         res.status(500).send({ message: error.message });
     }
 });
@@ -85,7 +87,7 @@ router.post('/signup/seller', [
         }
         const { name, email, pass } = req.body;
         const result = await sellerSignup(name, email, pass);
-        res.status(201).send(result);
+        res.status(200).send(result);
     } catch (error) {
         res.status(500).send({ message: error.message });
     }
@@ -102,8 +104,15 @@ router.post('/login/seller', [
             return res.status(400).json({ errors: errors.array() });
         }
         const token = await sellerLogin(req.body.email, req.body.pass);
-        res.json({ token });
+        console.log(token);
+        res.status(200).json({ token });
     } catch (error) {
+
+
+        console.log(error);
+        console.error({ message: error.message });
         res.status(401).send({ message: error.message });
     }
 });
+
+export default router;

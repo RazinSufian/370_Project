@@ -1,6 +1,12 @@
 import { pool } from "../../config/database.js";
 
 // Customer controller
+
+export const getAllCustomers = async () => {
+    const [rows] = await pool.execute('SELECT * FROM customer');
+    return rows;
+}
+
 export const createCustomer = async (name, phone, email, pass, division, house_no, city) => {
     const [result] = await pool.execute(`INSERT INTO customer (name, phone, email, pass, division, house_no, city) VALUES (?, ?, ?, ?, ?, ?, ?)`, [name, phone, email, pass, division, house_no, city]);
     return result;

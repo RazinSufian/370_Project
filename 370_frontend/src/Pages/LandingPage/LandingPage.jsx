@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetTopProductsQuery } from '../../features/products/productsApiSlice';
 import { selectTopProducts, setError, setLoading, setTopProducts } from '../../features/products/productsSlice';
 import ProductCard from '../../Components/ProductCard/ProductCard';
+import Carousel from '../../Components/Carousel/Carousel';
 
 const mockupData = [
   {
@@ -123,7 +124,7 @@ const LandingPage = () => {
 
   return (
     <>
-    <Navbar></Navbar>
+    <Carousel></Carousel>
     <div className="landing-page">
       <header className="header">
         <h1>Welcome to Our topProduct Store</h1>
