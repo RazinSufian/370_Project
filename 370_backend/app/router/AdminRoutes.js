@@ -5,27 +5,27 @@ import { createAdmin, deleteAdmin, getAdminById, updateAdmin } from '../controll
 
 
 // Admin routes
-router.post('/admin', (req, res) => {
+router.post('/', (req, res) => {
     const { name, role, pass } = req.body;
     createAdmin(name, role, pass)
         .then(result => res.status(201).send(result))
         .catch(error => res.status(500).send(error.message));
 });
 
-router.get('/admin/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     getAdminById(req.params.id)
         .then(admin => res.send(admin))
         .catch(error => res.status(404).send(error.message));
 });
 
-router.put('/admin/:id', (req, res) => {
+router.put('/:id', (req, res) => {
     const { name, role, pass } = req.body;
     updateAdmin(req.params.id, name, role, pass)
         .then(result => res.send(result))
         .catch(error => res.status(500).send(error.message));
 });
 
-router.delete('/admin/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     deleteAdmin(req.params.id)
         .then(result => res.send(result))
         .catch(error => res.status(500).send(error.message));

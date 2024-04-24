@@ -58,38 +58,7 @@ const Router = () => {
             element: <App></App>,
   
           },
-          {
-            path: "/auth",
-            element: <Main> </Main>,
-            children: [
-              {
-                path: "/auth/admin",
-                element: <AdminLogin></AdminLogin>,
-              },
-              {
-                path: "/auth/admin/signup",
-                element: <AdminSignup></AdminSignup>,
-              },
-              {
-                path: "/auth/seller/login",
-                element: <SellerLogin></SellerLogin>,
-              },
-              {
-                path: "/auth/seller/signup",
-                element: <SellerSignup></SellerSignup>
-              },
-              {
-                path: "/auth/customer/login",
-                element: <CustomerLogin></CustomerLogin>
-              },
-              {
-                path: "/auth/customer/signup",
-                element: <CustomerSignup></CustomerSignup>
-              }
-
-            ]
-  
-          },
+          
           {
             path: "/products/:id",
             element: <ProductDetail></ProductDetail>
@@ -225,7 +194,39 @@ const Router = () => {
             element: <FeedbackAndRatings />
           },
         ]
-      }
+      },
+      {
+        path: "/auth",
+        element: <Main> </Main>,
+        children: [
+          {
+            path: "/auth/admin",
+            element: <AdminLogin></AdminLogin>,
+          },
+          {
+            path: "/auth/admin/signup",
+            element: <AdminSignup></AdminSignup>,
+          },
+          {
+            path: "/auth/seller/login",
+            element: <SellerLogin></SellerLogin>,
+          },
+          {
+            path: "/auth/seller/signup",
+            element: <SellerSignup></SellerSignup>
+          },
+          {
+            path: "/auth/customer/login",
+            element: <CustomerLogin></CustomerLogin>
+          },
+          {
+            path: "/auth/customer/signup",
+            element: <CustomerSignup></CustomerSignup>
+          }
+
+        ]
+
+      },
       ,
         
         {
