@@ -1,11 +1,12 @@
 // features/admin/adminSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from '../../axios';
+import axios from '../../API/axios';
 
 const initialState = {
   admins: [],
   status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-  error: null
+  error: null,
+  role: null,
 };
 
 // Async thunk actions
@@ -41,6 +42,7 @@ const adminSlice = createSlice({
       .addCase(fetchAdmins.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.admins = action.payload;
+        state.role = 'admin';
       })
       .addCase(fetchAdmins.rejected, (state, action) => {
         state.status = 'failed';

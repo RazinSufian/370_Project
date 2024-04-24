@@ -15,6 +15,25 @@ export const getProductById = async (product_id) => {
     `, [product_id]);
     return rows;
 };
+export const getAllProducts = async () => {
+    const [rows] = await pool.execute(`
+        SELECT pi.*, s.name AS shop_name
+        FROM product_info pi
+        INNER JOIN shop s ON pi.shop_id = s.shop_id
+    `);
+    return rows;
+}
+
+
+export const getProductByShopId = async (shop_id) => {
+    const [rows] = await pool.execute(` 
+        SELECT pi.*, s.name AS shop_name
+        FROM product_info pi
+        INNER JOIN shop s ON pi.shop_id = s.shop_id
+        WHERE pi.shop_id = ?
+    `, [shop_id]);
+    return rows;
+}
 
 
 export const updateProduct = async (product_id, shop_id, name, quantity, approval, price, review) => {

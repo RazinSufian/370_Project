@@ -1,5 +1,5 @@
 import express from 'express';
-import { createProduct, deleteProduct, getProductById, updateProduct } from '../controllers/ProductInfoController.js';
+import { createProduct, deleteProduct, getAllProducts, getProductById, getProductByShopId, updateProduct } from '../controllers/ProductInfoController.js';
 const router = express.Router();
 
 // Product Info routes
@@ -10,12 +10,22 @@ router.post('/product_info', (req, res) => {
         .catch(error => res.status(500).send(error.message));
 });
 
+router.get('/product_info', (req, res) => {
+    getAllProducts()
+        .then(products => res.send(products))
+        .catch(error => res.status(500).send(error.message));
+})
+
 router.get('/product_info/:product_id', (req, res) => {
     getProductById(req.params.product_id)
         .then(product => res.send(product))
         .catch(error => res.status(404).send(error.message));
 });
-
+router.get('/product_info/shop/:shop_id', (req, res) => {
+    getProductByShopId(req.params.shop_id)
+        .then(product => res.send(product))
+        .catch(error => res.status(404).send(error.message));
+})
 router.put('/product_info/:product_id', (req, res) => {
     const { shop_id, name, quantity, approval, price, review } = req.body;
     updateProduct(req.params.product_id, shop_id, name, quantity, approval, price, review)

@@ -1,11 +1,12 @@
 // features/customers/customerSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from '../../axios';
+import axios from '../../API/axios';
 
 const initialState = {
   customers: [],
   status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-  error: null
+  error: null,
+  role: null,
 };
 
 // Async thunk actions for Customers
@@ -41,6 +42,7 @@ const customerSlice = createSlice({
       .addCase(fetchCustomers.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.customers = action.payload;
+        state.role = 'customer';
       })
       .addCase(fetchCustomers.rejected, (state, action) => {
         state.status = 'failed';

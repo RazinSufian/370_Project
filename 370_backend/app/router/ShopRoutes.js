@@ -1,5 +1,5 @@
 import express from 'express';
-import { createShop, deleteShop, getShopById, updateShop } from '../controllers/ShopController.js';
+import { createShop, deleteShop, getAllShops, getShopById, getShopBySellerId, updateShop } from '../controllers/ShopController.js';
 const router = express.Router();
 
 // Shop routes
@@ -12,6 +12,18 @@ router.post('/shop', (req, res) => {
 
 router.get('/shop/:shop_id', (req, res) => {
     getShopById(req.params.shop_id)
+        .then(shop => res.send(shop))
+        .catch(error => res.status(404).send(error.message));
+});
+
+router.get('/shop', (req, res) => {
+    getAllShops()
+        .then(shop => res.send(shop))
+        .catch(error => res.status(500).send(error.message));
+});
+
+router.get('/shop/seller/:seller_id', (req, res) => {
+    getShopBySellerId(req.params.seller_id)
         .then(shop => res.send(shop))
         .catch(error => res.status(404).send(error.message));
 });

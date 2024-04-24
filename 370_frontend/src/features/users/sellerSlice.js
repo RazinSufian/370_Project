@@ -1,17 +1,18 @@
 // features/sellers/sellerSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from '../../axios'
+import axios from '../../API/axios'
 
 const initialState = {
   sellers: [],
   status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-  error: null
+  error: null,
+  role: null,
 };
 
 // Async thunk actions for Sellers
 export const fetchSellers = createAsyncThunk('sellers/fetchSellers', async () => {
   const response = await axios
-  .get('/seller');
+    .get('/seller');
   return response.data;
 });
 
@@ -42,6 +43,7 @@ const sellerSlice = createSlice({
       .addCase(fetchSellers.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.sellers = action.payload;
+        state.role = 'seller';
       })
       .addCase(fetchSellers.rejected, (state, action) => {
         state.status = 'failed';

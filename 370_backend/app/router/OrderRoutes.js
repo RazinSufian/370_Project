@@ -1,5 +1,5 @@
 import express from 'express';
-import { createOrder, deleteOrder, getOrderById, updateOrder } from '../controllers/OrderController.js';
+import { createOrder, deleteOrder, getAllOrders, getOrderById, getOrdersByCustomerId, getOrdersByProductId, getOrdersByShopId, updateOrder } from '../controllers/OrderController.js';
 const router = express.Router();
 // Order routes
 router.post('/order', (req, res) => {
@@ -11,6 +11,30 @@ router.post('/order', (req, res) => {
 
 router.get('/order/:order_id', (req, res) => {
     getOrderById(req.params.order_id)
+        .then(order => res.send(order))
+        .catch(error => res.status(404).send(error.message));
+});
+
+router.get('/order', (req, res) => {
+    getAllOrders()
+        .then(order => res.send(order))
+        .catch(error => res.status(500).send(error.message));
+});
+
+router.get('/order/customer/:customer_id', (req, res) => {
+    getOrdersByCustomerId(req.params.customer_id)
+        .then(order => res.send(order))
+        .catch(error => res.status(404).send(error.message));
+});
+
+router.get('/order/product/:product_id', (req, res) => {
+    getOrdersByProductId(req.params.product_id)
+        .then(order => res.send(order))
+        .catch(error => res.status(404).send(error.message));
+});
+
+router.get('/order/shop/:shop_id', (req, res) => {
+    getOrdersByShopId(req.params.shop_id)
         .then(order => res.send(order))
         .catch(error => res.status(404).send(error.message));
 });
