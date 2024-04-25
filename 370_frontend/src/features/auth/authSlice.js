@@ -19,6 +19,7 @@ const clearAuthData = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
   localStorage.removeItem('role');
+  console.log('Cleared auth data');
 };
 // Async thunks for signing up and logging in
 export const adminSignup = createAsyncThunk(
@@ -69,7 +70,7 @@ export const customerLogin = createAsyncThunk(
       const response = await axios.post(`${API_BASE_URL}/login/customer`, { email, pass });
       const { token } = response.data;
       const decoded = jwtDecode(token);
-      console.log(decoded);
+      console.log(response.data);
       setAuthData(response.data.token, email, 'customer');
       console.log(response.data);
       return { ...response.data, role: decoded.role };
@@ -99,7 +100,7 @@ export const sellerLogin = createAsyncThunk(
       const response = await axios.post(`${API_BASE_URL}/login/seller`, { email, pass });
       const { token } = response.data;
       const decoded = jwtDecode(token);
-      setAuthData(response.data.token, { name, role }, role);
+      setAuthData(response.data.token, email, "seller");
       return { ...response.data, role: decoded.role };
     } catch (error) {
       console.log(error);
@@ -125,6 +126,8 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.role = null;
+      state.status = 'idle';
+      state.error = null;
     },
   },
   extraReducers: (builder) => {

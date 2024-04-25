@@ -1,66 +1,126 @@
-import React, { useState } from 'react';
-import './ShopInfo.css'; // Create a CSS file for styling
+import React, { useState, useEffect } from 'react';
+import { useGetShopBySellerIdQuery, useCreateShopMutation, useUpdateShopMutation } from '../../features/shop/shopAPI';
 
 const ShopInfo = () => {
-  const [shopName, setShopName] = useState('My Shop');
-  const [shopDescription, setShopDescription] = useState('A brief description of my shop.');
-  const [shopLocation, setShopLocation] = useState('City, Country');
-  const [shopLogo, setShopLogo] = useState('https://placehold.co/600x400'); // Add a default logo URL if available
+  const seller_id = localStorage.getItem('seller_id');
+  console.log(seller_id);
+  const { data, isLoading, isError, error, refetch } = useGetShopBySellerIdQuery(seller_id, { skip: !seller_id });
+  const shopData = data[0];
+  const [isEditing, setIsEditing] = useState(false);
+  const [sellerId, setSellerId] = useState(seller_id || '');
+  const [name, setName] = useState('');
+  const [totalCategories, setTotalCategories] = useState('');
+  const [phone, setPhone] = useState('');
+  const [division, setDivision] = useState('');
+  const [house, setHouse] = useState('');
+  const [city, setCity] = useState('');
+  const [fb, setFb] = useState('');
+  const [insta, setInsta] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add logic to send shop information to your backend or perform any necessary actions
-    console.log('Shop information submitted:', { shopName, shopDescription, shopLocation, shopLogo });
-    // Add additional logic for form submission, such as sending data to your backend
+  const [createShop] = useCreateShopMutation();
+  const [updateShop] = useUpdateShopMutation();
+
+  useEffect(() => {
+    if (shopData) {
+      setSellerId(shopData.seller_id || '');
+      setName(shopData.name || '');
+      setTotalCategories(shopData.total_categories || '');
+      setPhone(shopData.phone || '');
+      setDivision(shopData.division || '');
+      setHouse(shopData.house || '');
+      setCity(shopData.city || '');
+      setFb(shopData.fb || '');
+      setInsta(shopData.insta || '');
+    }
+  }, [shopData]);
+
+  const handleCreateShop = async () => {
+    try {
+      await createShop({ seller_id, name, total_categories: totalCategories, phone, division, house, city, fb, insta });
+      refetch();
+    } catch (err) {
+      console.error('Failed to create shop:', err);
+    }
   };
 
+  const handleUpdateShop = async () => {
+    try {
+      await updateShop({ sellerId, name, totalCategories, phone, division, house, city, fb, insta });
+      setIsEditing(false);
+      refetch();
+    } catch (err) {
+      console.error('Failed to update shop:', err);
+    }
+  };
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
+
+  const shopExists = shopData && Object.keys(shopData).length > 0;
+
   return (
-    <div className="shop-info-container">
-      <h2>Add Your Shop Information</h2>
-      <form onSubmit={handleSubmit} className="shop-info-form">
-        <label>
-          Shop Name:
-          <input
-            type="text"
-            value={shopName}
-            onChange={(e) => setShopName(e.target.value)}
-            placeholder="Enter your shop name"
-          />
-        </label>
-
-        <label>
-          Shop Description:
-          <textarea
-            value={shopDescription}
-            onChange={(e) => setShopDescription(e.target.value)}
-            placeholder="Enter a brief description of your shop"
-          />
-        </label>
-
-        <label>
-          Shop Location:
-          <input
-            type="text"
-            value={shopLocation}
-            onChange={(e) => setShopLocation(e.target.value)}
-            placeholder="Enter your shop location (e.g., City, Country)"
-          />
-        </label>
-
-        <label>
-          Shop Logo URL:
-          <input
-            type="url"
-            value={shopLogo}
-            onChange={(e) => setShopLogo(e.target.value)}
-            placeholder="Enter your shop logo URL"
-          />
-        </label>
-
-        <button type="submit" className="submit-button">Submit</button>
-      </form>
+    <div>
+      {shopExists ? (
+        <>
+          <h2>Shop Details</h2>
+          <p>Seller ID: {sellerId}</p>
+          <p>Name: {name}</p>
+          <p>Total Categories: {totalCategories}</p>
+          <p>Phone: {phone}</p>
+          <p>Division: {division}</p>
+          <p>House: {house}</p>
+          <p>City: {city}</p>
+          <p>Facebook: {fb}</p>
+          <p>Instagram: {insta}</p>
+          {/* {!isEditing && <button onClick={() => setIsEditing(true)}>Edit</button>}
+          {isEditing && (
+            <button onClick={handleUpdateShop}>Save</button>
+          )} */}
+        </>
+      ) : (
+        <>
+          <h2>Create Shop</h2>
+          <div>
+            <label htmlFor="sellerId">Seller ID:</label>
+            <input type="text" id="sellerId" disabled value={seller_id} onChange={(e) => setSellerId(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="totalCategories">Total Categories:</label>
+            <input type="text" id="totalCategories" value={totalCategories} onChange={(e) => setTotalCategories(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="phone">Phone:</label>
+            <input type="text" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="division">Division:</label>
+            <input type="text" id="division" value={division} onChange={(e) => setDivision(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="house">House:</label>
+            <input type="text" id="house" value={house} onChange={(e) => setHouse(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="city">City:</label>
+            <input type="text" id="city" value={city} onChange={(e) => setCity(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="fb">Facebook:</label>
+            <input type="text" id="fb" value={fb} onChange={(e) => setFb(e.target.value)} />
+          </div>
+          <div>
+            <label htmlFor="insta">Instagram:</label>
+            <input type="text" id="insta" value={insta} onChange={(e) => setInsta(e.target.value)} />
+          </div>
+          <button onClick={handleCreateShop}>Create Shop</button>
+        </>
+      )}
     </div>
   );
-};
+}
 
 export default ShopInfo;

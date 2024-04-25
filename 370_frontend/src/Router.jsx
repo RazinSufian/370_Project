@@ -63,6 +63,10 @@ const Router = () => {
             path: "/products/:id",
             element: <ProductDetail></ProductDetail>
           },
+          // {
+          //   path: "/shop/:shopname",
+          //   element: <ShopPage></ShopPage>
+          // },
           {
             path: "/shops/:id",
             element: <ShopPage></ShopPage>

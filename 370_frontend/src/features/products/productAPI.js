@@ -13,6 +13,9 @@ const productAPI = createApi({
         getProductByShopId: builder.query({
             query: (shop_id) => `product_info/shop/${shop_id}`,
         }),
+        getProductByShopName: builder.query({
+            query: (name) => `product_info/shop/${name}`,
+        }),
         createProduct: builder.mutation({
             query: ({ shop_id, name, quantity, approval, price, review }) => ({
                 url: 'product_info',
@@ -40,6 +43,7 @@ export const {
     useGetAllProductsQuery,
     useGetProductByIdQuery,
     useGetProductByShopIdQuery,
+    useGetProductByShopNameQuery,
     useCreateProductMutation,
     useUpdateProductMutation,
     useDeleteProductMutation,

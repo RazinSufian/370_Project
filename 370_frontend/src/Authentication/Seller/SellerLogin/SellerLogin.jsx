@@ -21,7 +21,7 @@ function SellerLogin() {
       }
       if (status === 'succeeded') {
         toast.success('Seller LoginS successful');
-        navigate('/'); // Navigate to the last page
+        navigate('/seller'); // Navigate to the last page
       }
       console.log(status)
     }, [error, status, navigate]);

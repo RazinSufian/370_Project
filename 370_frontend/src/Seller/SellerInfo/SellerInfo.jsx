@@ -1,11 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SellerInfo.css'; // Create a CSS file for styling
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getSeller } from '../../features/users/sellerSlice';
 
 const SellerInfo = () => {
-  const [sellerName, setSellerName] = useState('John Doe');
-  const [shopName, setShopName] = useState('Doe\'s Shop');
-  const [contactEmail, setContactEmail] = useState('john.doe@example.com');
-  const [phoneNumber, setPhoneNumber] = useState('123-456-7890');
+
+  const {  seller,isLoading, role, loaded } = useSelector((state) => state.seller);
+        const navigate = useNavigate();
+        const dispatch = useDispatch();
+        // console.log(seller)
+       
+        useEffect(() => {
+            if (!role) {
+                dispatch(getSeller());
+                
+                // setPhoneNumber(seller.phone_number);
+                // setProfileImage(seller.profile_image);
+                
+            }
+            if (seller) {
+              setSellerName(seller[0]?.name);
+                setSellerId(seller[0]?.seller_id);
+                setContactEmail(seller[0]?.email);
+                console.log(seller[0])
+            }
+        }, [seller, role, dispatch]);
+
+  const [sellerName, setSellerName] = useState('');
+  const [sellerId, setSellerId] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
   const [ profileImage, setProfileImage ] = useState('https://placehold.co/600x400');
 
@@ -16,7 +41,7 @@ const SellerInfo = () => {
   const handleSaveClick = () => {
     setIsEditMode(false);
     // Add logic to save seller details to your backend or perform any necessary actions
-    console.log('Seller details saved:', { sellerName, shopName, contactEmail, phoneNumber });
+    console.log('Seller details saved:', { sellerName, sellerId, contactEmail, phoneNumber });
   };
 
   return (
@@ -45,11 +70,11 @@ const SellerInfo = () => {
             </label>
 
             <label>
-              Shop Name:
+              Seller Id:
               <input
                 type="text"
-                value={shopName}
-                onChange={(e) => setShopName(e.target.value)}
+                value={sellerId}
+                onChange={(e) => setSellerId(e.target.value)}
                 placeholder="Enter your shop name"
               />
             </label>
@@ -64,22 +89,13 @@ const SellerInfo = () => {
               />
             </label>
 
-            <label>
-              Phone Number:
-              <input
-                type="tel"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                placeholder="Enter your phone number"
-              />
-            </label>
+           
           </form>
         ) : (
           <div className="preview-section">
             <p><strong>Seller Name:</strong> {sellerName}</p>
-            <p><strong>Shop Name:</strong> {shopName}</p>
+            <p><strong>Shop Name:</strong> {sellerId}</p>
             <p><strong>Contact Email:</strong> {contactEmail}</p>
-            <p><strong>Phone Number:</strong> {phoneNumber}</p>
           </div>
         )}
       </div>

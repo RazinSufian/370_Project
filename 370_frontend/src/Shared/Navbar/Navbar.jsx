@@ -43,16 +43,17 @@ const Navbar = () => {
         <div className={`nav-links ${isNavOpen ? 'show' : ''}`}>
           <Link to="/">Home</Link>
           {isLoggedIn && <>
-            <Link to="/product-listings">Product Listings</Link>
+            {/* <Link to="/product-listings">Product Listings</Link> */}
             <Link to="/shopping-cart">Shopping Cart</Link>
-            <Link to="/checkout">Checkout</Link>
-            <Link to="/order-confirmation">Order Confirmation</Link>
             <Link to="/user-account">User Account</Link>
+            {/* <Link to="/checkout">Checkout</Link>
+            <Link to="/order-confirmation">Order Confirmation</Link>
+            // <Link to="/user-account">User Account</Link>
             <Link to="/wishlist">Wishlist</Link>
-            <Link to="/seller-reviews">Seller Reviews</Link>
-            <Link to="/blog">Blog</Link>
-            <Link to="/privacy-policy-terms">Privacy Policy & Terms</Link>
-            <Link to="/notifications">Notifications</Link>
+            <Link to="/seller-reviews">Seller Reviews</Link> */}
+            {/* <Link to="/blog">Blog</Link> */}
+            {/* <Link to="/privacy-policy-terms">Privacy Policy & Terms</Link> */}
+            {/* <Link to="/notifications">Notifications</Link> */}
           </>}
           {isLoggedIn ? (
             <button onClick={handleLogout}>Logout</button>

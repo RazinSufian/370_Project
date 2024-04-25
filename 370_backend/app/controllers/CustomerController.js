@@ -1,4 +1,5 @@
 import { pool } from "../../config/database.js";
+import jwt from 'jsonwebtoken';
 
 // Customer controller
 
@@ -14,6 +15,12 @@ export const createCustomer = async (name, phone, email, pass, division, house_n
 
 export const getCustomerById = async (customer_id) => {
     const [rows] = await pool.execute(`SELECT * FROM customer WHERE customer_id = ?`, [customer_id]);
+    return rows;
+};
+
+export const getCustomerBytoken = async (token) => {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    const [rows] = await pool.execute(`SELECT * FROM customer WHERE customer_id = ?`, [user.customer_id]);
     return rows;
 };
 

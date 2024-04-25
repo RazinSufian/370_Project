@@ -1,4 +1,6 @@
 import { pool } from "../../config/database.js";
+import jwt from 'jsonwebtoken';
+
 
 // Seller controller
 
@@ -16,6 +18,13 @@ export const getSellerById = async (seller_id) => {
     return rows;
 };
 
+export const getSellerByToken = async (token) => {
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(user);
+    const [rows] = await pool.execute(`SELECT * FROM seller WHERE seller_id = ?`, [user.seller_id]);
+    
+    return rows;
+}
 export const updateSeller = async (seller_id, name, email, pass) => {
     const [result] = await pool.execute(`UPDATE seller SET name = ?, email = ?, pass = ? WHERE seller_id = ?`, [name, email, pass, seller_id]);
     return result;

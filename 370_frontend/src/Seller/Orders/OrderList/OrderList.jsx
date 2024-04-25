@@ -1,79 +1,54 @@
-// OrderList.js
-
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useGetOrdersByShopIdQuery } from '../../../features/order/orderAPI';
+// import { useGetOrdersByShopIdQuery } from '../../features/orders/orderAPI';
 
 const OrderList = () => {
-  // Mock-up data for order list
-  const mockOrders = [
-    {
-      orderId: 1,
-      productName: 'Running Shoes',
-      quantity: 2,
-      totalAmount: '$179.98',
-      orderDate: '2024-03-06',
-      status: 'Shipped',
-    },
-    {
-      orderId: 2,
-      productName: 'Casual Sneakers',
-      quantity: 1,
-      totalAmount: '$49.99',
-      orderDate: '2024-03-07',
-      status: 'Processing',
-    },
-    // Add more mock orders as needed
-  ];
-
+  // const { shopId } = useParams();
+  const shop_id = localStorage.getItem('shop_id');
+  const { data, error, isLoading } = useGetOrdersByShopIdQuery(shop_id, { skip: !shop_id });
+  console.log(data)
   const [orders, setOrders] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch orders from your backend API and update the state
-    // Example: Fetch orders using axios or fetch API
-    // const fetchData = async () => {
-    //   const response = await fetch('your_backend_api/orders');
-    //   const data = await response.json();
-    //   setOrders(data);
-    // };
-    // fetchData();
+    if (data) {
+      setOrders(data);
+    }
+  }, [data]);
 
-    // For now, using mock data for demonstration
-    setOrders(mockOrders);
-  }, []);
-
-  const handleDetailPage =(id)=>{
-    navigate(`/seller/order-details/${id}`)
-  }
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>An error occurred: {error.message}</div>;
 
   return (
-    <div className="view-orders-container">
-      <h2>Your Orders</h2>
+    <div>
+      <h1>Orders for Shop {shop_id}</h1>
       {orders.length === 0 ? (
-        <p>No orders available.</p>
+        <p>No orders found for this shop.</p>
       ) : (
-        <table className="order-table">
+        <table>
           <thead>
             <tr>
               <th>Order ID</th>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Total Amount</th>
-              <th>Order Date</th>
-              <th>Status</th>
-              <th>Details</th>
+              <th>Customer ID</th>
+              <th>Product ID</th>
+              <th>Payment Method</th>
+              <th>Billing Address</th>
+              <th>Delivery Time</th>
+              <th>Payment Status</th>
+              <th>Shipment Status</th>
             </tr>
           </thead>
           <tbody>
-            {orders.map(order => (
-              <tr key={order.orderId}>
-                <td>{order.orderId}</td>
-                <td>{order.productName}</td>
-                <td>{order.quantity}</td>
-                <td>{order.totalAmount}</td>
-                <td>{order.orderDate}</td>
-                <td>{order.status}</td>
-                <td><button onClick={()=>handleDetailPage(order.orderId)}>Details</button></td>
+            {orders.map((order) => (
+              <tr key={order.order_id}>
+                <td>{order.order_id}</td>
+                <td>{order.customer_id}</td>
+                <td>{order.product_id}</td>
+                <td>{order.payment_method}</td>
+                <td>{order.billing_address}</td>
+                <td>{order.delivery_time}</td>
+                <td>{order.payment_status}</td>
+                <td>{order.shipment_status}</td>
               </tr>
             ))}
           </tbody>

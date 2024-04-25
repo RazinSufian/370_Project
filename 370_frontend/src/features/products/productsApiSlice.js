@@ -12,7 +12,7 @@ export const apiSlice = createApi({
       query: () => '/top-products',
     }),
     getProductbyId: builder.query({
-      query: (id) => `/products//product_info/${id}`,
+      query: (id) => `/products/product_info/${id}`,
     }),
   }),
 });

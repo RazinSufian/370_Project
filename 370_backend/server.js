@@ -7,6 +7,9 @@ import authRoute from './app/router/AuthRouters.js'
 import customerRouter from './app/router/CustomerRoutes.js'
 import sellerRoute from './app/router/SellerRoutes.js'
 import adminRoute from './app/router/AdminRoutes.js'
+import shopRoute from './app/router/ShopRoutes.js'
+import productsRoute from './app/router/ProductInfoRoutes.js'
+import orderRoute from './app/router/OrderRoutes.js'
 import dotenv from 'dotenv';
 //Ensure the path to your database.js is correct
 
@@ -24,6 +27,9 @@ app.use('/auth', authRoute)
 app.use('/customer', customerRouter)
 app.use('/seller', sellerRoute)
 app.use('/admin', adminRoute)
+app.use('/shop', shopRoute)
+app.use('/order', orderRoute)
+app.use('/product_info', productsRoute)
 
 
 

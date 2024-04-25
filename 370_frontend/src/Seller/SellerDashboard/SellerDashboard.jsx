@@ -11,23 +11,23 @@ import OrderList from '../Orders/OrderList/OrderList';
 
 const SellerDashboard = () => {
   // Mockup data
-  const shopName = "Shoe Haven";
-  const totalSales = 150;
-  const totalProducts = 50;
+  // const shopName = "Shoe Haven";
+  // const totalSales = 150;
+  // const totalProducts = 50;
 
   return (
     <div>
-      <h1>Welcome to {shopName} Seller Dashboard</h1>
+      <h1>Welcome to Seller Dashboard</h1>
       
-      <div>
+      {/* <div>
         <h2>Shop Overview</h2>
         <p>Total Sales: ${totalSales}</p>
         <p>Total Products: {totalProducts}</p>
-      </div>
-
+      </div> */}
+{/* 
       <ShopManagement />
       <ProductListings />
-      <InventoryManagement />
+      <InventoryManagement /> */}
       <OrderList />
 
       {/* Add more components for other sections */}

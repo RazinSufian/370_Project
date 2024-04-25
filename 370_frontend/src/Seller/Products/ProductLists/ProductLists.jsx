@@ -1,59 +1,59 @@
-// ProductLists.js
+// ProductListByShopPage.js
 
-import React, { useState } from 'react';
+import React from 'react';
+import { useDeleteProductMutation, useGetProductByShopIdQuery } from '../../../features/products/productAPI';
+// import { useGetProductByShopIdQuery, useDeleteProductMutation } from './productAPI'; // Import the RTK Query hooks
 
 const ProductLists = () => {
-  // Mock-up data for product list
-  const mockProducts = [
-    {
-      id: 1,
-      name: 'Running Shoes',
-      description: 'High-performance running shoes for athletes.',
-      price: '$89.99',
-      image: 'https://example.com/running-shoes.jpg',
-    },
-    {
-      id: 2,
-      name: 'Casual Sneakers',
-      description: 'Stylish and comfortable sneakers for everyday wear.',
-      price: '$49.99',
-      image: 'https://example.com/casual-sneakers.jpg',
-    },
-    // Add more mock products as needed
-  ];
+  const shop_id = localStorage.getItem('shop_id');
+    const { data: products, isLoading, isError } = useGetProductByShopIdQuery(shop_id, { skip: !shop_id });
+    const [deleteProduct, { isLoading: isDeleting, isError: deleteError }] = useDeleteProductMutation();
+    console.log(products)
+    const handleDelete = async (productId) => {
+        try {
+            await deleteProduct(productId).unwrap(); // Unwrap the result
+        } catch (error) {
+            console.error('Failed to delete product:', error);
+        }
+    };
 
-  const [products, setProducts] = useState(mockProducts);
+    const handleUpdate = (productId) => {
+        // Implement update functionality here
+        console.log(`Update product with ID ${productId}`);
+    };
 
-  const handleDeleteProduct = (productId) => {
-    // Add logic to delete the product with the given productId
-    const updatedProducts = products.filter(product => product.id !== productId);
-    setProducts(updatedProducts);
-  };
-
-  return (
-    <div className="manage-products-container">
-      <h2>Your Products</h2>
-      {products.length === 0 ? (
-        <p>No products available. Add some products to manage.</p>
-      ) : (
-        <ul className="product-list">
-          {products.map(product => (
-            <li key={product.id} className="product-item">
-              <img src={product.image} alt={product.name} className="product-image" />
-              <div className="product-details">
-                <h3 className="product-name">{product.name}</h3>
-                <p className="product-description">{product.description}</p>
-                <p className="product-price">{product.price}</p>
-                <button onClick={() => handleDeleteProduct(product.id)} className="delete-button">
-                  Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+    return (
+        <div>
+            <h2>Products</h2>
+            {isLoading && <div>Loading...</div>}
+            {isError && <div>Error fetching products</div>}
+            {products && (
+                <ul>
+                    {products.map(product => (
+                        <li key={product.product_id}>
+                            <div>
+                                <strong>Name: </strong>{product.name}
+                            </div>
+                            <div>
+                                <strong>Quantity: </strong>{product.quantity}
+                            </div>
+                            <div>
+                                <strong>Price: </strong>{product.price}
+                            </div>
+                            <div>
+                                <strong>Approval: </strong>{product.approval}
+                            </div>
+                            <div>
+                                <strong>Review: </strong>{product.review}
+                            </div>
+                            <button onClick={() => handleDelete(product.product_id)} disabled={isDeleting}>Delete</button>
+                            <button onClick={() => handleUpdate(product.product_id)} disabled={isDeleting}>Update</button>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
 };
 
 export default ProductLists;

@@ -1,55 +1,76 @@
 // ProductListings.js
+
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCreateProductMutation } from '../../features/products/productAPI';
+// import { useCreateProductMutation } from './productAPI'; // Import the RTK Query hooks
+// import { useHistory } from 'react-router-dom'; // If using React Router for navigation
 
 const ProductListings = () => {
-  // Mockup data
-  const [productListings, setProductListings] = useState([
-    {
-      id: 1,
-      name: 'Classic Sneakers',
-      description: 'Timeless style for any occasion',
-      price: 49.99,
-      sizes: ['US 7', 'US 8', 'US 9'],
-    },
-    // Add more mockup data as needed
-  ]);
+  const shop_id = localStorage.getItem('shop_id');
+    const [formData, setFormData] = useState({
+        shop_id: shop_id,
+        name: '',
+        quantity: '',
+        approval: false,
+        price: '',
+        review: ''
+    });
 
-  // Function to handle adding a new product
-  const addProduct = () => {
-    const newProduct = {
-      id: productListings.length + 1,
-      name: 'New Product',
-      description: 'Product description',
-      price: 29.99,
-      sizes: ['US 7', 'US 8', 'US 9'],
+    const navigate = useNavigate();
+
+    // const history = useHistory();
+    const [createProduct, { isLoading, isError }] = useCreateProductMutation();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
-    setProductListings((prevListings) => [...prevListings, newProduct]);
-  };
 
-  // Function to handle deleting a product
-  const deleteProduct = (productId) => {
-    setProductListings((prevListings) =>
-      prevListings.filter((product) => product.id !== productId)
-    );
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await createProduct(formData).unwrap(); // Unwrap the result
+            // Redirect to product list page after successful creation
+            navigate('/seller/products');
+        } catch (error) {
+            console.error('Failed to create product:', error);
+        }
+    };
 
-  return (
-    <div>
-      <h2>Product Listings</h2>
-
-      <button onClick={addProduct}>Add New Product</button>
-
-      {productListings.map((product) => (
-        <div key={product.id}>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <p>Price: ${product.price}</p>
-          <p>Sizes: {product.sizes.join(', ')}</p>
-          <button onClick={() => deleteProduct(product.id)}>Delete Product</button>
+    return (
+        <div>
+            <h2>Create Product</h2>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Shop ID:
+                    <input type="text" name="shop_id" value={formData.shop_id} onChange={handleChange} />
+                </label>
+                <label>
+                    Name:
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} />
+                </label>
+                <label>
+                    Quantity:
+                    <input type="text" name="quantity" value={formData.quantity} onChange={handleChange} />
+                </label>
+                <label>
+                    Approval:
+                    <input type="text" name="approval" value={formData.approval} onChange={handleChange} />
+                </label>
+                <label>
+                    Price:
+                    <input type="text" name="price" value={formData.price} onChange={handleChange} />
+                </label>
+                <label>
+                    Review:
+                    <input type="text" name="review" value={formData.review} onChange={handleChange} />
+                </label>
+                <button type="submit" disabled={isLoading}>Create Product</button>
+                {isError && <div>Error creating product</div>}
+            </form>
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default ProductListings;

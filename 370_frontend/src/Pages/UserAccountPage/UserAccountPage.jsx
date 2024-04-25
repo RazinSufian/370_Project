@@ -1,6 +1,8 @@
 // Import necessary React components and styling
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './UserAccountPage.css'; // Import your stylesheet
+import { useDispatch, useSelector } from 'react-redux';
+import { getCustomer } from '../../features/users/customerSlice';
 
 // Mockup data for user profile and order history
 const userProfile = {
@@ -25,18 +27,33 @@ const orderHistory = [
 ];
 
 const UserAccountPage = () => {
+  const [customerData, setCustomerData] = useState({});
+  const customer = useSelector((state) => state.customer.customer);
+  console.log(customer);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!customer) {
+      dispatch(getCustomer());
+      setCustomerData(customer[0]);
+    }
+}, [customer, dispatch]);
+  
   return (
     <div className="user-account-page">
       <h2>User Account</h2>
 
       <div className="user-profile">
         <h3>Profile Information</h3>
-        <p>Name: {userProfile.name}</p>
-        <p>Email: {userProfile.email}</p>
-        <button>Edit Profile</button>
+        <p>Name: {customer[0].name}</p>
+        <p>Email: {customer[0].email}</p>
+        <p>Phone: {customer[0].phone}</p>
+        <p>House No: {customer[0].house_no}</p>
+        <p>City: {customer[0].city}</p>
+        <p>Division : {customer[0].division}</p>
+        {/* <button>Edit Profile</button> */}
       </div>
 
-      <div className="order-history">
+      {/* <div className="order-history">
         <h3>Order History</h3>
         {orderHistory.map((order) => (
           <div key={order.orderId} className="order">
@@ -67,7 +84,7 @@ const UserAccountPage = () => {
           </ul>
           <button>Add New Payment Method</button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

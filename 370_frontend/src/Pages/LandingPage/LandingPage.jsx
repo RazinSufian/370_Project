@@ -10,6 +10,7 @@ import { useGetTopProductsQuery } from '../../features/products/productsApiSlice
 import { selectTopProducts, setError, setLoading, setTopProducts } from '../../features/products/productsSlice';
 import ProductCard from '../../Components/ProductCard/ProductCard';
 import Carousel from '../../Components/Carousel/Carousel';
+import ProductsPage from '../AllProduct/AllProdoct';
 
 const mockupData = [
   {
@@ -139,6 +140,7 @@ const LandingPage = () => {
           ))}
         </div>
       </section>
+      <ProductsPage></ProductsPage>
 
       <section className="about-section">
         <h2>About Us</h2>

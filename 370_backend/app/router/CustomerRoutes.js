@@ -1,5 +1,5 @@
 import express from 'express';
-import { createCustomer, deleteCustomer, getAllCustomers, getCustomerById, updateCustomer } from '../controllers/CustomerController.js';
+import { createCustomer, deleteCustomer, getAllCustomers, getCustomerById, getCustomerBytoken, updateCustomer } from '../controllers/CustomerController.js';
 const router = express.Router();
 // Customer routes
 
@@ -22,6 +22,15 @@ router.get('/:customer_id', (req, res) => {
         .catch(error => res.status(404).send(error.message));
 });
 
+router.get('/token/:token', (req, res) => {
+    // console.log(req.params.token);
+    getCustomerBytoken(req.params.token)
+        .then(customer => res.send(customer))
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error.message);
+        });
+});
 router.put('/:customer_id', (req, res) => {
     const { name, phone, email, pass, division, house_no, city } = req.body;
     updateCustomer(req.params.customer_id, name, phone, email, pass, division, house_no, city)

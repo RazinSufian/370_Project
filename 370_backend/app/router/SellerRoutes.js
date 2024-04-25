@@ -1,5 +1,5 @@
 import express from 'express';
-import { createSeller, deleteSeller, getAllSellers, getSellerById, updateSeller } from '../controllers/SellerController.js';
+import { createSeller, deleteSeller, getAllSellers, getSellerById, getSellerByToken, updateSeller } from '../controllers/SellerController.js';
 const router = express.Router();
 
 // Seller routes
@@ -22,6 +22,14 @@ router.get('/:seller_id', (req, res) => {
         .catch(error => res.status(404).send(error.message));
 });
 
+router.get('/token/:token', (req, res) => {
+    // console.log(req.params.token);
+    getSellerByToken(req.params.token)
+        .then(seller => res.send(seller))
+        .catch(error => {
+            console.log(error);
+            res.status(404).send(error.message)});
+    })
 router.put('/:seller_id', (req, res) => {
     const { name, email, pass } = req.body;
     updateSeller(req.params.seller_id, name, email, pass)

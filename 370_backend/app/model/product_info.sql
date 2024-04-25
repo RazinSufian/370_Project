@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `product_info` (
     `shop_id` BIGINT NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     `quantity` INT NOT NULL,
-    `approval` BOOLEAN NOT NULL,
+    `approval` BOOLEAN ,
     `price` DECIMAL(10,2) NOT NULL,
     `review` TEXT,
     PRIMARY KEY (`product_id`),
