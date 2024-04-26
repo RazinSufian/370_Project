@@ -1,25 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Carousel.css';
-
-// Mock data with placeholder images
-const mockData = [
-  {
-    id: 1,
-    imageUrl: 'https://via.placeholder.com/800x400?text=Slide+1',
-  },
-  {
-    id: 2,
-    imageUrl: 'https://via.placeholder.com/800x400?text=Slide+2',
-  },
-  {
-    id: 3,
-    imageUrl: 'https://via.placeholder.com/800x400?text=Slide+3',
-  },
-  {
-    id: 4,
-    imageUrl: 'https://via.placeholder.com/800x400?text=Slide+4',
-  },
-];
+import { useDispatch, useSelector } from 'react-redux';
+import { useGetTopProductsQuery } from '../../features/products/productsApiSlice';
+import { selectTopProducts, setError, setLoading, setTopProducts } from '../../features/products/productsSlice';
+import { Link } from 'react-router-dom';
 
 const Carousel = ({
   slideDuration = 3000,
@@ -30,10 +14,32 @@ const Carousel = ({
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(autoplay);
   const carouselRef = useRef(null);
+  
+  const dispatch = useDispatch();
+  const { data: topProducts, isLoading, isError } = useGetTopProductsQuery();
+  const products = useSelector(selectTopProducts)?.slice(0, 5);  // Limit the products to 5
+
+  useEffect(() => {
+    if (topProducts) {
+      dispatch(setTopProducts(topProducts));
+      console.log(topProducts);
+    }
+    console.log(topProducts);
+  }, [topProducts, dispatch]);
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(setLoading('loading'));
+    } else if (isError) {
+      dispatch(setError('error'));
+    } else {
+      dispatch(setLoading('idle'));
+    }
+  }, [isLoading, isError, dispatch]);
 
   // Handle slide transition
   const handleSlideTransition = (direction) => {
-    const totalSlides = mockData.length;
+    const totalSlides = products.length;  // Update to use the length of the sliced products array
     let nextSlide;
 
     if (direction === 'next') {
@@ -64,7 +70,7 @@ const Carousel = ({
     return () => {
       clearInterval(autoplayInterval);
     };
-  }, [isPlaying, currentSlide, slideDuration]);
+  }, [isPlaying, currentSlide, slideDuration, handleSlideTransition]);
 
   // Handle touch and drag support
   const handleTouchStart = (e) => {
@@ -100,9 +106,11 @@ const Carousel = ({
           transform: `translateX(-${(currentSlide * 100) / visibleSlides}%)`,
         }}
       >
-        {mockData.map((slide) => (
-          <div key={slide.id} className="carousel-item">
-            <img src={slide.imageUrl} alt={`Slide ${slide.id}`} />
+        {products && products.map((slide) => (
+          <div key={slide.product_id} className="carousel-item">
+            <Link to={`/products/${slide.product_id}`} className="product-card-link">
+              <img src={slide.product_image_url} alt={`Slide ${slide.product_id}`} />
+            </Link>
           </div>
         ))}
       </div>
@@ -114,7 +122,7 @@ const Carousel = ({
           &lt;
         </button>
         <div className="carousel-pagination">
-          {mockData.map((_, index) => (
+          {products && products.map((_, index) => (
             <span
               key={index}
               className={`pagination-dot ${

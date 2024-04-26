@@ -44,7 +44,7 @@ const ProductListings = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Shop ID:
-                    <input type="text" name="shop_id" value={formData.shop_id} onChange={handleChange} />
+                    <input disabled type="text" name="shop_id" value={formData.shop_id} onChange={handleChange} />
                 </label>
                 <label>
                     Name:

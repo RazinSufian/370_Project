@@ -46,6 +46,7 @@ import SellerLogin from './Authentication/Seller/SellerLogin/SellerLogin';
 import SellerSignup from './Authentication/Seller/SellerSignUp/SellerSignUp';
 import CustomerLogin from './Authentication/Cusromer/CusromerLogin/CusromerLogin';
 import CustomerSignup from './Authentication/Cusromer/CusromerSignUp/CusromerSignUp';
+import ProductsPage from './Pages/AllProduct/AllProdoct';
 
 const Router = () => {
     const router = createBrowserRouter([
@@ -58,7 +59,10 @@ const Router = () => {
             element: <App></App>,
   
           },
-          
+          {
+            path: "/all-products",
+            element: <ProductsPage></ProductsPage>
+          },
           {
             path: "/products/:id",
             element: <ProductDetail></ProductDetail>

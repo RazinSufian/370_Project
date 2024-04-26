@@ -12,93 +12,6 @@ import ProductCard from '../../Components/ProductCard/ProductCard';
 import Carousel from '../../Components/Carousel/Carousel';
 import ProductsPage from '../AllProduct/AllProdoct';
 
-const mockupData = [
-  {
-    id: 1,
-    name: 'Running topProducts',
-    description: 'Comfortable and lightweight running topProducts for your active lifestyle.',
-    price: 59.99,
-    image: 'https://example.com/running-topProducts.jpg',
-  },
-  {
-    id: 2,
-    name: 'Casual Sneakers',
-    description: 'Stylish and versatile sneakers for your everyday casual look.',
-    price: 49.99,
-    image: 'https://example.com/casual-sneakers.jpg',
-  },
-  {
-    id: 3,
-    name: 'Casual Sneakers',
-    description: 'Stylish and versatile sneakers for your everyday casual look.',
-    price: 49.99,
-    image: 'https://example.com/casual-sneakers.jpg',
-  },
-  {
-    id: 4,
-    name: 'Running topProducts',
-    description: 'Comfortable and lightweight running topProducts for your active lifestyle.',
-    price: 59.99,
-    image: 'https://example.com/running-topProducts.jpg',
-  },
-  {
-    id: 5,
-    name: 'Casual Sneakers',
-    description: 'Stylish and versatile sneakers for your everyday casual look.',
-    price: 49.99,
-    image: 'https://example.com/casual-sneakers.jpg',
-  },
-  {
-    id: 6,
-    name: 'Casual Sneakers',
-    description: 'Stylish and versatile sneakers for your everyday casual look.',
-    price: 49.99,
-    image: 'https://example.com/casual-sneakers.jpg',
-  },
-  {
-    id: 7,
-    name: 'Running topProducts',
-    description: 'Comfortable and lightweight running topProducts for your active lifestyle.',
-    price: 59.99,
-    image: 'https://example.com/running-topProducts.jpg',
-  },
-  {
-    id: 8,
-    name: 'Casual Sneakers',
-    description: 'Stylish and versatile sneakers for your everyday casual look.',
-    price: 49.99,
-    image: 'https://example.com/casual-sneakers.jpg',
-  },
-  {
-    id: 9,
-    name: 'Casual Sneakers',
-    description: 'Stylish and versatile sneakers for your everyday casual look.',
-    price: 49.99,
-    image: 'https://example.com/casual-sneakers.jpg',
-  },
-  {
-    id: 10,
-    name: 'Running topProducts',
-    description: 'Comfortable and lightweight running topProducts for your active lifestyle.',
-    price: 59.99,
-    image: 'https://example.com/running-topProducts.jpg',
-  },
-  {
-    id: 11,
-    name: 'Casual Sneakers',
-    description: 'Stylish and versatile sneakers for your everyday casual look.',
-    price: 49.99,
-    image: 'https://example.com/casual-sneakers.jpg',
-  },
-  {
-    id: 12,
-    name: 'Casual Sneakers',
-    description: 'Stylish and versatile sneakers for your everyday casual look.',
-    price: 49.99,
-    image: 'https://example.com/casual-sneakers.jpg',
-  },
-  // Add more topProducts as needed
-];
 
 const LandingPage = () => {
   const dispatch = useDispatch();
@@ -129,7 +42,6 @@ const LandingPage = () => {
     <div className="landing-page">
       <header className="header">
         <h1>Welcome to Our topProduct Store</h1>
-        <p>Discover the latest trends in footwear</p>
       </header>
       
       <section className="featured-section">
@@ -140,9 +52,9 @@ const LandingPage = () => {
           ))}
         </div>
       </section>
-      <ProductsPage></ProductsPage>
+      {/* <ProductsPage></ProductsPage> */}
 
-      <section className="about-section">
+      {/* <section className="about-section">
         <h2>About Us</h2>
         <p>
           At our topProduct store, we strive to provide you with the best in footwear fashion.
@@ -158,7 +70,7 @@ const LandingPage = () => {
           <input type="email" placeholder="Enter your email" />
           <button type="submit">Subscribe</button>
         </form>
-      </section>
+      </section> */}
 
       <footer className="footer">
         <p>&copy; 2024 Your topProduct Store. All rights reserved.</p>

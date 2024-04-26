@@ -1,38 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import './SellerInfo.css'; // Create a CSS file for styling
+import './SellerInfo.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getSeller } from '../../features/users/sellerSlice';
 
 const SellerInfo = () => {
+  const { seller, isLoading, role, loaded } = useSelector((state) => state.seller);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const {  seller,isLoading, role, loaded } = useSelector((state) => state.seller);
-        const navigate = useNavigate();
-        const dispatch = useDispatch();
-        // console.log(seller)
-       
-        useEffect(() => {
-            if (!role) {
-                dispatch(getSeller());
-                
-                // setPhoneNumber(seller.phone_number);
-                // setProfileImage(seller.profile_image);
-                
-            }
-            if (seller) {
-              setSellerName(seller[0]?.name);
-                setSellerId(seller[0]?.seller_id);
-                setContactEmail(seller[0]?.email);
-                console.log(seller[0])
-            }
-        }, [seller, role, dispatch]);
+  useEffect(() => {
+    if (!role) {
+      dispatch(getSeller());
+    }
+    if (seller && seller.length > 0) { // Ensure that seller is not empty
+      setSellerName(seller[0]?.name);
+      setSellerId(seller[0]?.seller_id);
+      setContactEmail(seller[0]?.email);
+      setPhoneNumber(seller[0]?.phone_number);
+      setProfileImage(seller[0]?.profile_image || 'https://placehold.co/600x400'); // Provide default image if none
+      console.log(seller[0]);
+    }
+  }, [seller, role, dispatch]);
 
   const [sellerName, setSellerName] = useState('');
   const [sellerId, setSellerId] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isEditMode, setIsEditMode] = useState(false);
-  const [ profileImage, setProfileImage ] = useState('https://placehold.co/600x400');
+  const [profileImage, setProfileImage] = useState('https://placehold.co/600x400');
 
   const handleEditClick = () => {
     setIsEditMode(true);
@@ -40,7 +36,6 @@ const SellerInfo = () => {
 
   const handleSaveClick = () => {
     setIsEditMode(false);
-    // Add logic to save seller details to your backend or perform any necessary actions
     console.log('Seller details saved:', { sellerName, sellerId, contactEmail, phoneNumber });
   };
 
@@ -88,8 +83,6 @@ const SellerInfo = () => {
                 placeholder="Enter your email"
               />
             </label>
-
-           
           </form>
         ) : (
           <div className="preview-section">

@@ -24,7 +24,7 @@ const SellerNav = () => {
       <div className="SellerNav-container">
         <div className="logo">Your Logo</div>
         <div className={`SellerNav-links ${isNavOpen ? 'show' : ''}`}>
-          <Link to="/">Home</Link>
+          {/* <Link to="/">Home</Link> */}
           <Link to="profile">Profile</Link>
           <Link to="shop">Shop</Link>
           <Link to="products">Products</Link>

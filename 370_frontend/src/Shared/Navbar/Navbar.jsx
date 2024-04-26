@@ -42,6 +42,7 @@ const Navbar = () => {
         <div className="logo">Your Logo</div>
         <div className={`nav-links ${isNavOpen ? 'show' : ''}`}>
           <Link to="/">Home</Link>
+          <Link to="/all-products">All Products</Link>
           {isLoggedIn && <>
             {/* <Link to="/product-listings">Product Listings</Link> */}
             <Link to="/shopping-cart">Shopping Cart</Link>

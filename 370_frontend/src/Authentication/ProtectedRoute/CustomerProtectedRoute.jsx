@@ -7,10 +7,15 @@ const withCustomerAccess = (WrappedComponent) => {
     return (props) => {
         const { isLoading, role, loaded } = useSelector((state) => state.customer);
         const navigate = useNavigate();
-
+        const sellerRole = localStorage.getItem('role');
+        console.log('sellerRole', sellerRole);
         useEffect(() => {
             if (loaded && role !== 'customer') {
                 navigate('/');
+            }
+            if (sellerRole === 'seller') {
+                navigate('/seller');
+                console.log('redirecting to seller');
             }
         }, [role, navigate, isLoading]);
 

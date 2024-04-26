@@ -26,14 +26,14 @@
     transform: translateX(-100%);
   }
   
-  h2 {
+  /* h2 {
     text-align: center;
     color: #333;
     font-size: 24px;
     margin-bottom: 20px;
-  }
+  } */
   
-  form {
+  /* form {
     display: flex;
     flex-direction: column;
   }
@@ -74,4 +74,4 @@
   p:hover {
     color: #207cca;
   }
-  
+   */

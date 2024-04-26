@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 const API_BASE_URL = `${import.meta.env.VITE_BASE_URL}/auth`; // Change this to your actual API base URL
 // Helper function to set local storage
 const setAuthData = (token, user, role) => {
+  localStorage.clear();
   console.log(token, user, role)
   localStorage.setItem('isLoggedIn', 'true');
   localStorage.setItem('token', token);
@@ -20,6 +21,8 @@ const clearAuthData = () => {
   localStorage.removeItem('user');
   localStorage.removeItem('role');
   console.log('Cleared auth data');
+  localStorage.clear();
+
 };
 // Async thunks for signing up and logging in
 export const adminSignup = createAsyncThunk(
@@ -88,6 +91,7 @@ export const sellerSignup = createAsyncThunk(
       setAuthData(response.data.token, { name, role }, role);
       return response.data;
     } catch (error) {
+      console.log(error);
       return rejectWithValue(error.response.data);
     }
   }

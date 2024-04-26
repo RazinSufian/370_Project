@@ -8,7 +8,11 @@ export const hashPassword = async (password) => {
 };
 
 export const comparePassword = async (password, hash) => {
-    return await bcrypt.compare(password, hash);
+    const isMatch = await bcrypt.compare(password, hash);
+    if (!isMatch) {
+        console.log(`Password mismatch: the entered password '${password}' does not match the stored hash.`);
+    }
+    return isMatch;
 };
 
 export const generateToken = (user) => {
@@ -30,7 +34,5 @@ export const extractToken = (req) => {
 }
 
 export const extractUser = (token) => {
-    
-        return verifyToken(token);
-    
+    return verifyToken(token);
 }
