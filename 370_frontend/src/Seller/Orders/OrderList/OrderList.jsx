@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetOrdersByShopIdQuery } from '../../../features/order/orderAPI';
+import './OrderList.css';
 // import { useGetOrdersByShopIdQuery } from '../../features/orders/orderAPI';
 
 const OrderList = () => {
   // const { shopId } = useParams();
   const shop_id = localStorage.getItem('shop_id');
   const { data, error, isLoading } = useGetOrdersByShopIdQuery(shop_id, { skip: !shop_id });
-  console.log(data)
+
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -16,16 +17,16 @@ const OrderList = () => {
     }
   }, [data]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred: {error.message}</div>;
+  if (isLoading) return <div className="order-list-loading-message">Loading...</div>;
+  if (error) return <div className="order-list-error-message">An error occurred: {error.message}</div>;
 
   return (
-    <div>
-      <h1>Orders for Shop {shop_id}</h1>
+    <div className="order-list-container">
+      <h1 className="order-list-shop-title">Orders for Shop {shop_id}</h1>
       {orders.length === 0 ? (
-        <p>No orders found for this shop.</p>
+        <p className="order-list-no-orders-message">No orders found for this shop.</p>
       ) : (
-        <table>
+        <table className="order-list-table">
           <thead>
             <tr>
               <th>Order ID</th>

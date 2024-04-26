@@ -41,7 +41,7 @@ const LandingPage = () => {
     <Carousel></Carousel>
     <div className="landing-page">
       <header className="header">
-        <h1>Welcome to Our topProduct Store</h1>
+        <h1>Welcome to Our Store</h1>
       </header>
       
       <section className="featured-section">
@@ -72,9 +72,9 @@ const LandingPage = () => {
         </form>
       </section> */}
 
-      <footer className="footer">
+      {/* <footer className="footer">
         <p>&copy; 2024 Your topProduct Store. All rights reserved.</p>
-      </footer>
+      </footer> */}
     </div>
     </>
   );

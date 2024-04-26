@@ -17,7 +17,7 @@ const SellerDashboard = () => {
 
   return (
     <div>
-      <h1>Welcome to Seller Dashboard</h1>
+      {/* <h1>Welcome to Seller Dashboard</h1> */}
       
       {/* <div>
         <h2>Shop Overview</h2>

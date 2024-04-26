@@ -39,14 +39,14 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${isNavOpen ? 'open' : ''}`}>
       <div className="nav-container">
-        <div className="logo">Your Logo</div>
+        <div className="logo">My_first_ecommerce_site</div>
         <div className={`nav-links ${isNavOpen ? 'show' : ''}`}>
           <Link to="/">Home</Link>
           <Link to="/all-products">All Products</Link>
           {isLoggedIn && <>
             {/* <Link to="/product-listings">Product Listings</Link> */}
-            <Link to="/shopping-cart">Shopping Cart</Link>
-            <Link to="/user-account">User Account</Link>
+            {/* <Link to="/shopping-cart">Shopping Cart</Link>
+            <Link to="/user-account">User Account</Link> */}
             {/* <Link to="/checkout">Checkout</Link>
             <Link to="/order-confirmation">Order Confirmation</Link>
             // <Link to="/user-account">User Account</Link>

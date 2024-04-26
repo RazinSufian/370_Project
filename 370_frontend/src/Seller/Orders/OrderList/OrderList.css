@@ -1,0 +1,51 @@
+/* OrderList.css */
+
+/* OrderList.css */
+
+/* Container styles */
+.order-list-container {
+    padding: 20px;
+    text-align: center; /* Center align all child elements */
+  }
+  
+  /* Shop title styles */
+  .order-list-shop-title {
+    margin-bottom: 20px;
+    text-align: center; /* Center align the text */
+  }
+  
+
+/* Loading message styles */
+.order-list-loading-message {
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Error message styles */
+.order-list-error-message {
+  color: red;
+  font-weight: bold;
+}
+
+/* No orders message styles */
+.order-list-no-orders-message {
+  font-style: italic;
+}
+
+/* Order table styles */
+.order-list-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-list-table th,
+.order-list-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-list-table th {
+  text-align: left;
+  background-color: #5c5151;
+  color: #000; /* Change font color to black */
+}

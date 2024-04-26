@@ -2,12 +2,14 @@ import express from 'express';
 import { createProduct, deleteProduct, getAllProducts, getProductById, getProductByShopId, getProductByShopName, updateProduct } from '../controllers/ProductInfoController.js';
 const router = express.Router();
 
-// Product Info routes
 router.post('/', (req, res) => {
-    const { shop_id, name, quantity, approval, price, review } = req.body;
-    createProduct(shop_id, name, quantity, approval, price, review)
+    const { shop_id, name, quantity, approval, price, review, image_url, product_description } = req.body;
+    createProduct(shop_id, name, quantity, approval, price, review, image_url, product_description)
         .then(result => res.status(201).send(result))
-        .catch(error => res.status(500).send(error.message));
+        .catch(error => {
+            console.log(error);
+            res.status(500).send(error.message);
+        });
 });
 
 router.get('/', (req, res) => {

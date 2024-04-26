@@ -1,43 +1,139 @@
-/* ShoeDetail.css */
+/* ProductDetail.css */
 
-.shoe-detail {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .shoe-detail-image {
-    max-width: 200px;
-    max-height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-right: 20px;
-  }
-  
-  .shoe-details {
-    flex: 1;
-  }
-  
-  h2 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-  }
-  
-  p {
-    margin-bottom: 8px;
-  }
-  
-  .shop-link {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .shop-link:hover {
-    text-decoration: underline;
-  }
-  
+/* Product detail container */
+.product-detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+/* Product name */
+.product-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Product image */
+.product-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Product description */
+.product-description {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Shop link */
+.shop-link {
+  font-size: 16px;
+  font-style: italic;
+  cursor: pointer;
+  color: #007bff;
+}
+
+/* Quantity available */
+.product-quantity {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Product price */
+.product-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2ecc71;
+}
+
+/* Product status */
+.product-status {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Product reviews */
+.product-reviews {
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Buy button */
+.buy-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buy-button:hover {
+  background-color: #0056b3;
+}
+
+/* Modal */
+.modal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #333;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 70%;
+  color: #fff;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;  
+}
+
+
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.submit-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,35 @@
+/* ShopInfo.css */
+
+/* Container styles */
+.seller-details-container {
+    background-color: #353434;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative; /* Changed to relative positioning */
+    top: 50%; /* Moved top positioning here */
+    transform: translateY(-50%); /* Adjusted translateY for vertical centering */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Profile section styles */
+  .profile-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Added flex-direction for vertical alignment */
+    margin-bottom: 20px; /* Added margin-bottom for spacing */
+  }
+  
+  /* Profile image styles */
+  .profile-image {
+    width: 150px; /* Adjusted image width */
+    height: 150px; /* Adjusted image height */
+    border-radius: 50%;
+  }
+  
+ 
+  

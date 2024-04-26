@@ -3,7 +3,7 @@
 import React from 'react';
 import { useDeleteProductMutation, useGetProductByShopIdQuery } from '../../../features/products/productAPI';
 // import { useGetProductByShopIdQuery, useDeleteProductMutation } from './productAPI'; // Import the RTK Query hooks
-
+import './ProductLists.css';
 const ProductLists = () => {
   const shop_id = localStorage.getItem('shop_id');
     const { data: products, isLoading, isError } = useGetProductByShopIdQuery(shop_id, { skip: !shop_id });
@@ -23,31 +23,28 @@ const ProductLists = () => {
     };
 
     return (
-        <div>
+        <div className="product-list-container"> {/* Add class name */}
             <h2>Products</h2>
             {isLoading && <div>Loading...</div>}
             {isError && <div>Error fetching products</div>}
             {products && (
-                <ul>
+                <ul className="product-list"> {/* Add class name */}
                     {products.map(product => (
-                        <li key={product.product_id}>
-                            <div>
+                        <li key={product.product_id} className="product-item"> {/* Add class name */}
+                            <div className="product-image"> {/* Add class name */}
+                                <img src={product.image_url} alt="Product_image" />
+                            </div>                           
+                            <div className="product-details"> {/* Add class name */}
                                 <strong>Name: </strong>{product.name}
-                            </div>
-                            <div>
                                 <strong>Quantity: </strong>{product.quantity}
-                            </div>
-                            <div>
                                 <strong>Price: </strong>{product.price}
-                            </div>
-                            <div>
                                 <strong>Approval: </strong>{product.approval}
-                            </div>
-                            <div>
                                 <strong>Review: </strong>{product.review}
                             </div>
-                            <button onClick={() => handleDelete(product.product_id)} disabled={isDeleting}>Delete</button>
-                            <button onClick={() => handleUpdate(product.product_id)} disabled={isDeleting}>Update</button>
+                            <div className="product-buttons"> {/* Add class name */}
+                                <button onClick={() => handleDelete(product.product_id)} disabled={isDeleting}>Delete</button>
+                                {/* <button onClick={() => handleUpdate(product.product_id)} disabled={isDeleting}>Update</button> */}
+                            </div>
                         </li>
                     ))}
                 </ul>

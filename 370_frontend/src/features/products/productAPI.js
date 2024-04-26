@@ -17,17 +17,17 @@ const productAPI = createApi({
             query: (name) => `product_info/shop/${name}`,
         }),
         createProduct: builder.mutation({
-            query: ({ shop_id, name, quantity, approval, price, review }) => ({
+            query: ({ shop_id, name, quantity, approval, price, review, image_url, product_description }) => ({
                 url: 'product_info',
                 method: 'POST',
-                body: { shop_id, name, quantity, approval, price, review }
+                body: { shop_id, name, quantity, approval, price, review, image_url, product_description }
             }),
         }),
         updateProduct: builder.mutation({
-            query: ({ product_id, shop_id, name, quantity, approval, price, review }) => ({
+            query: ({ product_id, shop_id, name, quantity, approval, price, review, image_url, product_description }) => ({
                 url: `product_info/${product_id}`,
                 method: 'PUT',
-                body: { shop_id, name, quantity, approval, price, review }
+                body: { shop_id, name, quantity, approval, price, review, image_url, product_description }
             }),
         }),
         deleteProduct: builder.mutation({

@@ -1,0 +1,83 @@
+/* ProductListings.css */
+
+/* Container styles */
+.product-listings-container {
+  background-color: #353434;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+.product-listings-heading {
+  margin-bottom: 20px;
+}
+
+/* Form group styles */
+.form-group {
+  margin-bottom: 16px;
+}
+
+/* Form label styles */
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Form input styles */
+.form-input {
+  padding: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+}
+
+/* Submit button styles */
+.btn-submit {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Signup text styles */
+.signup-text {
+  margin-top: 16px;
+}
+
+/* Signup link styles */
+.signup-link {
+  color: #007bff;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+/* ProductListings.css */
+
+/* Form input styles */
+.form-input {
+  padding: 8px;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+}
+
+.form-input:disabled {
+  text-align: center; /* Center align the text for disabled input fields */
+}
+

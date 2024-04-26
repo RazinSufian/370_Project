@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useGetShopBySellerIdQuery, useCreateShopMutation, useUpdateShopMutation } from '../../features/shop/shopAPI';
+import './ShopInfo.css'; // Import CSS file
 
 const ShopInfo = () => {
   const seller_id = localStorage.getItem('seller_id');
   console.log(seller_id);
   const { data, isLoading, isError, error, refetch } = useGetShopBySellerIdQuery(seller_id, { skip: !seller_id });
-  const shopData = data[0];
+  const shopData = data && data.length > 0 ? data[0] : null;
+
   const [isEditing, setIsEditing] = useState(false);
   const [sellerId, setSellerId] = useState(seller_id || '');
   const [name, setName] = useState('');
@@ -59,22 +61,24 @@ const ShopInfo = () => {
   const shopExists = shopData && Object.keys(shopData).length > 0;
 
   return (
-    <div>
+    <div className="seller-details-container">
       {shopExists ? (
         <>
           <h2>Shop Details</h2>
-          <p>Seller ID: {sellerId}</p>
-          <p>Name: {name}</p>
-          <p>Total Categories: {totalCategories}</p>
-          <p>Phone: {phone}</p>
-          <p>Division: {division}</p>
-          <p>House: {house}</p>
-          <p>City: {city}</p>
-          <p>Facebook: {fb}</p>
-          <p>Instagram: {insta}</p>
-          {/* {!isEditing && <button onClick={() => setIsEditing(true)}>Edit</button>}
+          <div className="profile-section">
+            <p>Seller ID: {sellerId}</p>
+            <p>Name: {name}</p>
+            <p>Total Categories: {totalCategories}</p>
+            <p>Phone: {phone}</p>
+            <p>Division: {division}</p>
+            <p>House: {house}</p>
+            <p>City: {city}</p>
+            <p>Facebook: {fb}</p>
+            <p>Instagram: {insta}</p>
+          </div>
+          {/* {!isEditing && <button className="edit-button" onClick={() => setIsEditing(true)}>Edit</button>}
           {isEditing && (
-            <button onClick={handleUpdateShop}>Save</button>
+            <button className="save-button" onClick={handleUpdateShop}>Save</button>
           )} */}
         </>
       ) : (

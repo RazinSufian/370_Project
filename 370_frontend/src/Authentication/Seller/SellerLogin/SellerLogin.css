@@ -1,0 +1,59 @@
+/* SellerLogin.css */
+.seller-login-container {
+    background-color: #353434;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.seller-login-heading {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-input {
+    padding: 8px;
+    width: 100%;
+    border: none;
+    border-radius: 4px;
+}
+
+.btn-submit {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+.signup-text {
+    margin-top: 16px;
+}
+
+.signup-link {
+    color: #007bff;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}

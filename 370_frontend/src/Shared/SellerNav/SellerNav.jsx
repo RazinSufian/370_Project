@@ -28,7 +28,7 @@ const SellerNav = () => {
           <Link to="profile">Profile</Link>
           <Link to="shop">Shop</Link>
           <Link to="products">Products</Link>
-          <Link to="/seller/dashboard">Dashboard</Link>
+          <Link to="/seller/dashboard">Orders</Link>
           {/* <Link to="/seller/shop-management">Shop Management</Link> */}
           <Link to="/seller/product-listings">Product Listings</Link>
           {/* <Link to="/seller/inventory-management">Inventory Management</Link> */}

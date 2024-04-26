@@ -3,21 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { customerLogin } from '../../../features/auth/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import './CusromerLogin.css'; // Import the CSS file
 
 function CustomerLogin() {
-
-
-
     const { error, isLoading, status } = useSelector((state) => state.auth);
-    const navigate = useNavigate(); // Initialize the useNavigate hook
+    const navigate = useNavigate();
+    
     useEffect(() => {
-      if (error && error.message) { // Check if error exists and has a message property
-        toast.error(error.message); // Display the error message
-      }
-      if (status === 'succeeded') {
-        toast.success('Customer Login successful');
-        navigate('/'); // Navigate to the last page
-      }
+        if (error && error.message) {
+            toast.error(error.message);
+        }
+        if (status === 'succeeded') {
+            toast.success('Customer Login successful');
+            navigate('/');
+        }
     }, [error, status, navigate]);
   
     const [formData, setFormData] = useState({
@@ -39,20 +38,20 @@ function CustomerLogin() {
     };
 
     return (
-        <div>
+        <div className="customer-login-container">
             <Toaster />
-            <h2>Customer Login</h2>
+            <h2 className="customer-login-heading">Customer Login</h2>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="form-group">
                     <label>Email:</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} className="form-input" required />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Password:</label>
-                    <input type="password" name="pass" value={formData.pass} onChange={handleChange} required />
+                    <input type="password" name="pass" value={formData.pass} onChange={handleChange} className="form-input" required />
                 </div>
-                <button type="submit">Login</button>
-                <p>Don't have an account? <Link to="/auth/customer/signup">Sign Up</Link></p>
+                <button type="submit" className="btn-login">Login</button>
+                <p className="signup-text">Don't have an account? <Link to="/auth/customer/signup" className="signup-link">Sign Up</Link></p>
             </form>
         </div>
     );

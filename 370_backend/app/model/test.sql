@@ -1,4 +1,4 @@
--- Active: 1713580632276@@127.0.0.1@3306@370_project
+-- Active: 1713204719140@@127.0.0.1@3306@370_project
 -- Inserting into the `admin` table
 INSERT INTO `admin` (`name`, `role`, `pass`) VALUES
 ('Admin1', 'super', 'pass1'),
@@ -63,7 +63,4 @@ UPDATE `product_info`
 SET 
     `image_url` = 'https://placehold.co/600x400',
     `product_description` = 'Sample product description';
-
-    
-
 

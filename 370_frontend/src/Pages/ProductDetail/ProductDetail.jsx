@@ -1,8 +1,10 @@
+// ProductDetail.js
+
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../features/products/productAPI';
 import { useCreateOrderMutation } from '../../features/order/orderAPI';
-// import { useCreateOrderMutation } from '../../features/orders/orderAPI';
+import './ProductDetail.css';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -26,8 +28,8 @@ const ProductDetail = () => {
     }
   }, [data]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>An error occurred: {error.message}</div>;
+  if (isLoading) return <div className="loading">Loading...</div>;
+  if (error) return <div className="error">An error occurred: {error.message}</div>;
 
   const handleShopPage = () => {
     navigate(`/shops/${product.shop_id}`);
@@ -50,54 +52,48 @@ const ProductDetail = () => {
     try {
       const isLoggedIn = localStorage.getItem('isLoggedIn');
       if (isLoggedIn) {
-      const orderData = {
-        customer_id: customer_id,
-        product_id: product.product_id,
-        shop_id: product.shop_id,
-        payment_method: formData.paymentMethod,
-        billing_address: formData.billingAddress,
-        delivery_time: formData.deliveryTime,
-        payment_status: 'pending',
-        shipment_status: 'pending',
-      
-      };
+        const orderData = {
+          customer_id: customer_id,
+          product_id: product.product_id,
+          shop_id: product.shop_id,
+          payment_method: formData.paymentMethod,
+          billing_address: formData.billingAddress,
+          delivery_time: formData.deliveryTime,
+          payment_status: 'pending',
+          shipment_status: 'pending',
+        };
 
-      await createOrder(orderData).unwrap();
-      handleCloseModal();
-      // Handle successful order creation (e.g., show a success message, redirect to a checkout page)
-      console.log('Order created successfully!');
-    }
-    else {
-      navigate('/auth/customer/login');
-    }
+        await createOrder(orderData).unwrap();
+        handleCloseModal();
+        console.log('Order created successfully!');
+      } else {
+        navigate('/auth/customer/login');
+      }
     } catch (error) {
-      // Handle error (e.g., show an error message)
       console.error('Error creating order:', error);
     }
   };
 
   return (
-    <div className="product-detail">
+    <div className="product-detail-container">
       {product && (
         <>
-          <h1>{product.name}</h1>
-          <img src={product.image_url} alt={product.name} style={{ maxWidth: '100%' }} />
-          <p>{product.description}</p>
-          <p onClick={handleShopPage}>Shop: {product.shop_name}</p>
-          <p>Quantity Available: {product.quantity}</p>
-          <p>Price: ${product.price ? product.price : 'N/A'}</p>
-          <p>Status: {product.approval ? 'Approved' : 'Pending'}</p>
-          <p>Reviews: {product.review}</p>
-          <button onClick={handleOpenModal}>Buy</button>
+          <h1 className="product-name">{product.name}</h1>
+          <img className="product-image" src={product.image_url} alt={product.name} />
+          <p className="product-description">{product.description}</p>
+          <p className="shop-link" onClick={handleShopPage}>Shop: {product.shop_name}</p>
+          <p className="product-quantity">Quantity Available: {product.quantity}</p>
+          <p className="product-price">Price: ${product.price ? product.price : 'N/A'}</p>
+          <p className="product-status">Status: {product.approval ? 'Approved' : 'Pending'}</p>
+          <p className="product-reviews">Reviews: {product.review}</p>
+          <button className="buy-button" onClick={handleOpenModal}>Buy</button>
         </>
       )}
 
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={handleCloseModal}>
-              &times;
-            </span>
+            <span className="close" onClick={handleCloseModal}>&times;</span>
             <h2>Enter Order Details</h2>
             <form>
               <label>
@@ -127,7 +123,7 @@ const ProductDetail = () => {
                   onChange={handleFormChange}
                 />
               </label>
-              <button type="button" onClick={handleSubmitForm}>
+              <button className="submit-button" type="button" onClick={handleSubmitForm}>
                 Submit
               </button>
             </form>
